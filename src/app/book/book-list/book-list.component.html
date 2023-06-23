@@ -1,0 +1,127 @@
+<div class="container-fluid">
+  <!-- <header class="container mt-4">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark d-flex align-items-center">
+      <div class="container">
+        <a class="navbar-brand mx-5" routerLink="/">
+          <h2>DreamShop</h2>
+        </a>
+        <button class="navbar-toggler mx-5" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+          aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+             <li class="nav-item">
+              <a class="nav-link" routerLink="/">
+                <h4>Login</h4>
+              </a>
+            </li> 
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/signup">
+                <h4>Sign Up</h4>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header> -->
+
+  <body>
+    <div class="container-fluid row">
+      <div class="col-sm-2 bg-image2">
+        <div class="bg-dark text-light center-sidebar vh-30">
+          <ul class="nav flex-column">
+            <li class="nav-item">
+              <a class="nav-link text-light sidebar-link" href="#">Add Book</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-light sidebar-link" href="#">Update Book</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-light sidebar-link" href="#">Delete Book</a>
+            </li>
+          </ul>
+        </div>
+        <select class="form-select mt-4" (change)="onOptionChange($event)">
+          <option selected>Search By</option>
+          <option value="priceRange">Choose by price range</option>
+          <option value="priceLessThan">Book price less or equals than</option>
+          <option value="authorIs">Search books by author</option>
+        </select>
+        <div class="col bg-dark text-light mt-4 justify-content-center text-center vh-30 mb-2">
+
+          <div class="row d-flex justify-content-center" *ngIf="selectedOption === 'priceRange'">
+            <p>Choose by price range</p>
+            <div class="col mb-2 !!! ">
+              <label for="price1">Price1</label>
+              <input name="price1" [(ngModel)]="price1" type="search">
+            </div>
+            <div class="col mb-4 !!! ">
+              <label for="price2">Price2</label>
+              <input name="price2" [(ngModel)]="price2" type="search">
+            </div>
+            <div>
+              <button class="btn btn-primary mb-2" type="submit" (click)="searchByPriceRange()">Search</button>
+            </div>
+          </div>
+
+          <div class="row d-flex justify-content-center" *ngIf="selectedOption === 'priceLessThan'">
+            <p>Price Tag</p>
+            <div class="col mb-2 ">
+              <label for="price">Price</label>
+              <input name="price" [(ngModel)]="priceLessThan" type="search">
+            </div>
+            <div>
+              <button class="btn btn-primary mb-2" type="submit" (click)="searchByPriceTag()">Search</button>
+            </div>
+          </div>
+
+          <div class="row d-flex justify-content-center" *ngIf="selectedOption === 'authorIs'">
+            <p>Search by author</p>
+            <div class="col mb-2 ">
+              <label for="author">Author</label>
+              <input name="author" [(ngModel)]="author" type="search">
+            </div>
+            <div>
+              <button class="btn btn-primary mb-2" type="submit" (click)="searchByAuthor()">Search</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="col-sm-10 bg-image">
+        <div class="container mt-5">
+          <h1 class="text-center">Books</h1>
+          <div class="row justify-content-center mt-5">
+            <div class="col-md-6">
+              <form class="d-flex mb-3">
+                <input class="form-control me-2 mb-4" name="searchTitleInput" [(ngModel)]="searchTitleInput" type="search" placeholder="Search By title" aria-label="Search">
+                <button class="btn btn-primary" type="submit" (click)="searchByTitle()">Search</button>
+              </form>
+            </div>
+          </div>
+          <div class="container row card-columns" *ngIf="booksList.length">
+            <div class="col-sm-4 mt-3" *ngFor="let book of booksList">
+              <div class="card">
+                <div class="card-body">
+                  <div class="container mb-4">
+                    <img class="img-fluid" src="../../../assets/img/book-image.png" alt="Image book">
+                  </div>
+                  <h5 class="card-title text-center">{{ book.title }}</h5>
+                  <h6 class="card-subtitle mb-2 text-muted">Author: {{ book.author }}</h6>
+                  <p class="card-text">Id: {{book.id }}</p>
+                  <p class="card-text">Price: {{book.price }} &euro;</p>
+                  <p class="card-text">PublishedYear: {{ book.publishedYear }}</p>
+                  <div class="container bg-dark d-flex justify-content-end">
+                    <button class="btn btn-light buy-btn" (click)="sendData(book.id)" routerLink="/get-book">Buy book</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</div>
