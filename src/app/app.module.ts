@@ -8,10 +8,10 @@ import { AppComponent } from './app.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
-import { VideoGamesComponent } from './video-games/video-games.component';
 import { BoardGamesComponent } from './board-games/board-games.component';
 import { UserModule } from './user/user.module';
 import { BookModule } from './book/book.module';
+import { VideoGamesModule } from './video-games/video-games.module';
 
 const routes: Routes = [
   {
@@ -22,10 +22,13 @@ const routes: Routes = [
     path: 'book',
     loadChildren: () => import('./book/book.module').then((m) => m.BookModule)
   },
+    {
+    path: 'video-games',
+    loadChildren: () => import('./video-games/video-games.module').then((m) => m.VideoGamesModule)
+  },
   { path: '', component: WelcomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
-  {path: 'video-games', component: VideoGamesComponent},
   {path: 'board-games', component: BoardGamesComponent},
 ];
 
@@ -35,7 +38,6 @@ const routes: Routes = [
     WelcomeComponent,
     LoginComponent,
     SignupComponent,
-    VideoGamesComponent,
     BoardGamesComponent,
   ],
   imports: [
@@ -45,6 +47,7 @@ const routes: Routes = [
     ReactiveFormsModule,
     UserModule,
     BookModule,
+    VideoGamesModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

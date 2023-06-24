@@ -1,42 +1,39 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { BookService } from '../book.service';
-import { Book } from '../book-interfaces';
+import { VideoGamesService } from '../video-games.service';
+import { VideoGame } from '../video-games-interfaces';
 import { Subscription } from 'rxjs';
-import { NgModule } from '@angular/core';
 
 @Component({
-  selector: 'app-book-list',
-  templateUrl: './book-list.component.html',
-  styleUrls: ['./book-list.component.css']
+  selector: 'app-video-games-list',
+  templateUrl: './video-games-list.component.html',
+  styleUrls: ['./video-games-list.component.css']
 })
-export class BookListComponent implements OnInit, OnDestroy{
+export class VideoGamesListComponent implements OnInit, OnDestroy{
 
   searchTitleInput: string = '';
   selectedOption: string | undefined;
+  manufacturer: string = '';
   priceLessThan: number = 0;
-  author: string = '';
   price1: number = 0;
   price2: number = 0;
 
-  constructor(private bookService: BookService) {}
+  constructor(private videoGameService: VideoGamesService) {}
 
   loading = false;
-  booksList: Book[] = [];
+  videoGamesList: VideoGame[] = [];
   subscription: Subscription | undefined;
 
   ngOnInit(): void {
     console.log("Api call has started.");
     this.loading = true;
-    this.subscription = this.bookService.findAll().subscribe({
+    this.subscription = this.videoGameService.findAll().subscribe({
       next: (apiData: any) => {
       console.log(apiData);
-      this.booksList = apiData; // Assign the array directly
+      this.videoGamesList = apiData; // Assign the array directly
       },
       error: (error) => {
         this.loading = false;
         console.log(error);
-        this.booksList = [];
-        this.showAlert("Wrong input, nothing to show.");
       },
       complete: ()=> {
         this.loading = false;
@@ -51,15 +48,15 @@ export class BookListComponent implements OnInit, OnDestroy{
 
   searchByTitle(): void {
     console.log("Api call has started.");
-    this.bookService.findBooksByTitle(this.searchTitleInput).subscribe({
+    this.videoGameService.findVideoGamesByTitle(this.searchTitleInput).subscribe({
       next: (apiData: any) => {
       console.log(apiData);
-      this.booksList = apiData; // Assign the array directly
+      this.videoGamesList = apiData; // Assign the array directly
       },
       error: (error) => {
         this.loading = false;
         console.log(error);
-        this.booksList = [];
+        this.videoGamesList = [];
         this.showAlert("Wrong input, nothing to show.");
       },
       complete: ()=> {
@@ -71,15 +68,15 @@ export class BookListComponent implements OnInit, OnDestroy{
 
   searchByPriceRange(): void {
     console.log("Api call has started.");
-    this.bookService.findBooksByPriceRange(this.price1, this.price2).subscribe({
+    this.videoGameService.findVideoGamesByPriceRange(this.price1, this.price2).subscribe({
       next: (apiData: any) => {
       console.log(apiData);
-      this.booksList = apiData; // Assign the array directly
+      this.videoGamesList = apiData; // Assign the array directly
       },
       error: (error) => {
         this.loading = false;
         console.log(error);
-        this.booksList = [];
+        this.videoGamesList = [];
         this.showAlert("Wrong input, nothing to show.");
       },
       complete: ()=> {
@@ -91,15 +88,15 @@ export class BookListComponent implements OnInit, OnDestroy{
 
   searchByPriceTag(): void {
     console.log("Api call has started.");
-    this.bookService.findBooksByPriceTAg(this.priceLessThan).subscribe({
+    this.videoGameService.findVideoGamesByPriceTag(this.priceLessThan).subscribe({
       next: (apiData: any) => {
       console.log(apiData);
-      this.booksList = apiData; // Assign the array directly
+      this.videoGamesList = apiData; // Assign the array directly
       },
       error: (error) => {
         this.loading = false;
         console.log(error);
-        this.booksList = [];
+        this.videoGamesList = [];
         this.showAlert("Wrong input, nothing to show.");
       },
       complete: ()=> {
@@ -109,17 +106,17 @@ export class BookListComponent implements OnInit, OnDestroy{
     })
   }
   
-  searchByAuthor(): void {
+  searchByManufacturer(): void {
     console.log("Api call has started.");
-    this.bookService.findBooksByAuthor(this.author).subscribe({
+    this.videoGameService.findVideoGamesByManufacturer(this.manufacturer).subscribe({
       next: (apiData: any) => {
       console.log(apiData);
-      this.booksList = apiData; // Assign the array directly
+      this.videoGamesList = apiData; // Assign the array directly
       },
       error: (error) => {
         this.loading = false;
         console.log(error);
-        this.booksList = [];
+        this.videoGamesList = [];
         this.showAlert("Wrong input, nothing to show.");
       },
       complete: ()=> {
@@ -129,9 +126,9 @@ export class BookListComponent implements OnInit, OnDestroy{
     })
   }
 
-  sendData(bookId: number) {
-    const dataToSend = bookId;
-    this.bookService.setData(dataToSend);
+  sendData(videoGameId: number) {
+    const dataToSend = videoGameId;
+    this.videoGameService.setData(dataToSend);
   }
 
   onOptionChange(event: Event): void {

@@ -1,32 +1,32 @@
-import { Component, OnInit } from '@angular/core';
-import { Book } from '../book-interfaces';
+import { Component } from '@angular/core';
+import { VideoGame } from '../video-games-interfaces';
 import { Subscription } from 'rxjs';
-import { BookService } from '../book.service';
+import { VideoGamesService } from '../video-games.service';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-get-book',
-  templateUrl: './get-book.component.html',
-  styleUrls: ['./get-book.component.css']
+  selector: 'app-get-video-game',
+  templateUrl: './get-video-game.component.html',
+  styleUrls: ['./get-video-game.component.css']
 })
-export class GetBookComponent implements OnInit{
+export class GetVideoGameComponent {
 
-  constructor(private bookService: BookService, private router: Router) {}
+  constructor(private videoGameService: VideoGamesService, private router: Router) {}
 
-  receivedData = this.bookService.getData();
+  receivedData = this.videoGameService.getData();
   
   loading: Boolean = false;    // True when the call to Backend is loading and false when it is not loading. In order to show a spinner when loading.
-  book?: Book;
+  videoGame?: VideoGame
   subscription: Subscription | undefined;
 
   ngOnInit() {
     console.log("Starting Api call 'findall'.");
     this.loading = true;
     console.log(this.receivedData);
-    this.subscription = this.bookService.findBook(this.receivedData).subscribe({
-      next: (apiData: Book) => {      // What I do with the data that I received.
+    this.subscription = this.videoGameService.findVideoGame(this.receivedData).subscribe({
+      next: (apiData: VideoGame) => {      // What I do with the data that I received.
         console.log(apiData);
-        this.book = apiData;
+        this.videoGame = apiData;
       },
       error: (error: any) => {      // If an error occures.
         this.loading = false;
@@ -39,12 +39,12 @@ export class GetBookComponent implements OnInit{
     })
   }
 
-   buyBook(bookId: number): void {
+   buyVideoGame(videoGameId: number): void {
     let userId = 1;
     console.log("Api call has started.");
-    this.bookService.addBookToUser(userId, bookId).subscribe({
+    this.videoGameService.addVideoGameToUser(userId, videoGameId).subscribe({
       next: (apiData: any) => {
-        console.log("BookId added: ", bookId);
+        console.log("BookId added: ", videoGameId);
       },
       error: (error) => {
         this.loading = false;
@@ -53,8 +53,8 @@ export class GetBookComponent implements OnInit{
       complete: ()=> {
         this.loading = false;
         console.log("Api call has been completed.");
-        this.router.navigate(['book-list']);
-        window.alert("Book was successfully added.")
+        this.router.navigate(['video-games-list']);
+        window.alert("Video game was successfully added.")
       }
     });
   }
