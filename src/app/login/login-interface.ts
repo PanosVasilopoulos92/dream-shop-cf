@@ -1,7 +1,8 @@
 export interface AuthenticateUser {
     username: string;
+    role: string;
     token: string;
-    duration: number;
+    expiresIn: number;
 }
 
 export interface UserAPILoginUser {
@@ -11,7 +12,7 @@ export interface UserAPILoginUser {
 
 export interface LoginResponse {
     token: string;
-    duration: number;
+    expiresIn: number;
     username: string;
-    password: string;
+    role: string;
 }

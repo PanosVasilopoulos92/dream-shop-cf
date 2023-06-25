@@ -1,6 +1,10 @@
 
-<a class="nav-link cursor-pointer" data-bs-toggle="modal" data-bs-target="#loginModal">
+<a *ngIf="!(isLoggedIn$ | async)" class="nav-link cursor-pointer" data-bs-toggle="modal" data-bs-target="#loginModal">
   <h4>Login</h4>
+</a>
+
+<a *ngIf="isLoggedIn$ | async" class="nav-link cursor-pointer" data-bs-toggle="modal" data-bs-target="#loginModal" routerLink="/" (click)="onLogout()">
+  <h4>Logout</h4>
 </a>
 
 <!-- Login Modal -->

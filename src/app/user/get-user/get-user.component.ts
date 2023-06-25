@@ -9,7 +9,9 @@ import { LoginService } from 'src/app/login/login.service';
   templateUrl: './get-user.component.html',
   styleUrls: ['./get-user.component.css']
 })
-export class GetUserComponent implements OnInit{
+export class GetUserComponent implements OnInit, OnDestroy {
+
+  @Input() username: string | undefined;
 
   constructor (private userService: UserService, private service: LoginService) {}
 
@@ -18,31 +20,36 @@ export class GetUserComponent implements OnInit{
   subscription: Subscription | undefined;
 
   ngOnInit(): void {
-    // Retrieve the authentication token from storage
-    let username = localStorage.getItem('username');
+    console.log("Starting Api call 'findUser'.");
+    this.service.username$.subscribe((username) => {
+      if (username) {
+        this.username = username;
+        this.fetchUser();
+      }
+    });
+  }
 
-    if(username) {
-    console.log("Starting Api call 'findall'.");
-    this.loading = true;
-    this.subscription = this.userService.findOne(username).subscribe({
-      next: (apiData: DisplayUser) => {      // What I do with the data that I received.
+  fetchUser(): void {
+    console.log("Starting API call 'findUser'.");
+    console.log(this.username);
+    this.subscription = this.userService.findOne(this.username).subscribe({
+      next: (apiData: DisplayUser) => {
         console.log(apiData);
         this.user = apiData;
       },
-      error: (error: any) => {      // If an error occures.
+      error: (error: any) => {
         this.loading = false;
-        console.log(error)
-      },    
+        console.log(error);
+      },
       complete: () => {
         this.loading = false;
-        console.log("Api call completed with success.")
+        console.log("API call completed with success.");
       },
-    })
-    }
+    });
   }
 
-  onLogout() {
-    this.service.logout();
+  ngOnDestroy(): void {
+    this.subscription?.unsubscribe();
   }
-
+  
 }

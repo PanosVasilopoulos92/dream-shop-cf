@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LoginService } from './login.service';
-import { Router } from '@angular/router';
 import { UserService } from '../user/user.service';
 
 
@@ -13,6 +12,7 @@ import { UserService } from '../user/user.service';
 export class LoginComponent {
 
   form: FormGroup;
+  isLoggedIn$ = this.service.isLoggedIn$;
 
   constructor(private fb: FormBuilder, private service: LoginService, private userService: UserService) {
     this.form = this.fb.group({
@@ -33,6 +33,10 @@ export class LoginComponent {
     };
     this.service.login(credentials);
     this.form.reset();
+  }
+
+    onLogout() {
+    this.service.logout();
   }
 
 }

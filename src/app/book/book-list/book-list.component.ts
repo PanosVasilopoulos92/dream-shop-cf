@@ -3,13 +3,14 @@ import { BookService } from '../book.service';
 import { Book } from '../book-interfaces';
 import { Subscription } from 'rxjs';
 import { NgModule } from '@angular/core';
+import { LoginService } from 'src/app/login/login.service';
 
 @Component({
   selector: 'app-book-list',
   templateUrl: './book-list.component.html',
   styleUrls: ['./book-list.component.css']
 })
-export class BookListComponent implements OnInit, OnDestroy{
+export class BookListComponent implements OnInit, OnDestroy {
 
   searchTitleInput: string = '';
   selectedOption: string | undefined;
@@ -18,7 +19,7 @@ export class BookListComponent implements OnInit, OnDestroy{
   price1: number = 0;
   price2: number = 0;
 
-  constructor(private bookService: BookService) {}
+  constructor(private bookService: BookService, private loginService: LoginService) {}
 
   loading = false;
   booksList: Book[] = [];

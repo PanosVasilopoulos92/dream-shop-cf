@@ -10,10 +10,14 @@
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav ms-auto">
             <li class="nav-item">
-              <app-login></app-login>
+                <app-login></app-login>
             </li>
             <li class="nav-item">
-              <a class="nav-link" routerLink="/signup"><h4>Sign Up</h4></a>
+              <a *ngIf="isLoggedIn$ | async" class="nav-link" routerLink="get-user"><h4>User</h4>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a *ngIf="!(isLoggedIn$ | async)" class="nav-link" routerLink="/signup"><h4>Sign Up</h4></a>
             </li>
           </ul>
         </div>
@@ -37,15 +41,15 @@
         </div>
         <div class="col-md-4">
           <h5>Follow Us</h5>
-          <ul class="list-inline social-icons">
+          <ul class="list-inline social-icons mt-3">
             <li class="list-inline-item">
-              <a href="#"><i class="fab fa-facebook"></i></a>
+              <a href="#"><i class="fab fa-facebook fs-2"></i></a>
             </li>
             <li class="list-inline-item">
-              <a href="#"><i class="fab fa-twitter"></i></a>
+              <a href="#"><i class="fab fa-twitter fs-2"></i></a>
             </li>
             <li class="list-inline-item">
-              <a href="#"><i class="fab fa-instagram"></i></a>
+              <a href="#"><i class="fab fa-instagram fs-2"></i></a>
             </li>
           </ul>
         </div>

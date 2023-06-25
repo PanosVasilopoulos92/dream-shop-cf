@@ -3,6 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
 import { AuthenticateUser } from './login-interface';
 import { AppService } from '../app.service';
+import { UserService } from '../user/user.service';
+import { DisplayUser } from '../user/get-user/user-interface';
 
 
 const USER_API = 'http://localhost:8080/api'
@@ -20,20 +22,27 @@ export class LoginService {
   private loggedInUserFullnameSubject = new BehaviorSubject<string>('');
   loggedInUserFullname$ = this.loggedInUserFullnameSubject.asObservable();
 
-  constructor(private http: HttpClient, private alertService: AppService) {}   // Here we inject the Services.
+  // Adds a new BehaviorSubject to store the username.
+  private usernameSubject = new BehaviorSubject<string>('');
+  username$ = this.usernameSubject.asObservable();
 
+  constructor(private http: HttpClient, private alertService: AppService, private userService: UserService) {}   // Here we inject the Services.
 
   login(credentials: any) {
     this.http.post<AuthenticateUser>(`${USER_API}/login`, credentials)
     .subscribe((user) => {
       if (user) {
         this.loggedInSubject.next(user.username === credentials.username);
-        this.loggedInUserFullnameSubject.next(`${user.username} ${user.token}`);
+        this.loggedInUserFullnameSubject.next(`${user.username} ${user.token} ${user.expiresIn} ${user.role}`);
+        // Emit the username value to the usernameSubject.
+        this.usernameSubject.next(user.username);
         console.log("Ok.");
-        console.log(user.username, user.token, user.duration);
-
-        let username = user.username;
-        localStorage.setItem('username', username);
+        console.log(this.isLoggedIn$);
+        console.log(this.loggedInUserFullname$);
+        console.log(this.loggedInSubject);
+        console.log(this.loggedInUserFullnameSubject);
+        console.log(user.username, user.token, user.expiresIn, user.role);
+        console.log(this.username$);
       } else {
         this.alertService.newAlert({type: 'danger', heading: 'Authentication error.', text: 'Wrong username or password.'});
         console.log("Wrong credentials");
@@ -44,8 +53,6 @@ export class LoginService {
   logout() {
     this.loggedInSubject.next(false);
     this.loggedInUserFullnameSubject.next('');
-
-    localStorage.setItem('username', '');
+    this.usernameSubject.next('');  // Clears the username value.
   }
-  
 }

@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { AppComponent } from './app.component';
 import { WelcomeComponent } from './welcome/welcome.component';
@@ -48,6 +49,7 @@ const routes: Routes = [
     UserModule,
     BookModule,
     VideoGamesModule,
+    FontAwesomeModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
