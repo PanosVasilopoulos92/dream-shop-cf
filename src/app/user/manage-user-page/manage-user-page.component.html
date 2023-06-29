@@ -1,0 +1,31 @@
+<div class="container d-flex justify-content-center mt-5">
+  <div class="">
+    <div class="col d-flex justify-content-center mb-4">
+      <img [src]="userAvatarImg" alt="User's avatar" class="img-fluid">
+    </div>
+    <div class="card bg-light mb-3 display-card" *ngIf="user">
+      <div class="card-header">
+        <h5 class="card-title text-center">{{ user.username }}</h5>
+      </div>
+      <div class="card-body">
+        <p class="card-text">ID: <span class="fs-5">{{ user.id }}</span></p>
+        <p class="card-text">Firstname: <span class="fs-5">{{ user.firstname }}</span></p>
+        <p class="card-text">Lastname: <span class="fs-5">{{ user.lastname }}</span></p>
+        <p class="card-text">Email: <span class="fs-5">{{ user.email }}</span></p>
+        <p class="card-text">Phone: <span class="fs-5">{{ user.phone }}</span></p>
+        <p class="card-text">Role: <span class="fs-5">{{ user.role }}</span></p>
+        <div>
+          <button class="btn btn-danger mt-2 mb-2" (click)="deleteUser(user.username)">Delete user</button>
+        <div class="">
+          <label for="userRole" class="form-label">Update user's role</label>
+          <select class="form-select" id="userRole" [(ngModel)]="selectedUserRole" (ngModelChange)="updateRole(user.id)">
+            <option value="" selected disabled>Select role</option>
+            <option value="ADMIN">ADMIN</option>
+            <option value="USER">USER</option>
+          </select>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

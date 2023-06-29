@@ -1,0 +1,7 @@
+.container-fluid {
+    max-width: 50vw;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}

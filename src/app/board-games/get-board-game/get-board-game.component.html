@@ -1,0 +1,23 @@
+<div class="container d-flex justify-content-center mt-5">
+  <div class="">
+    <div class="col d-flex justify-content-center mb-4">
+      <img src="../../../assets/img/board-game-list.jpg" alt="Board Game Cover" class="img-fluid">
+    </div>
+    <div class="col card bg-light mb-3 display-card" *ngIf="boardGame">
+      <div class="card-header">
+        <h5 class="card-title text-center">{{ boardGame.title }}</h5>
+      </div>
+      <div class="card-body">
+        <p class="card-text">Produshed by: <strong>{{ boardGame.manufacturer }}</strong></p>
+        <p class="card-text">boardGame ID: {{ boardGame.id }}</p>
+        <p class="card-text">Price: {{ boardGame.price }} &euro;</p>
+        <p class="card-text">Number of players: {{ boardGame.numberOfPlayers }}</p>
+        <p class="card-text">Year of publish: {{ boardGame.publishedYear }}</p>
+        <p class="card-text">Description: {{ boardGame.description }}</p>
+        <div class="bg-dark d-flex justify-content-center mt-4">
+          <button class="btn btn-light mt-2 mb-2" (click)="buyBoardGame(boardGame.id)">Buy Board Game</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

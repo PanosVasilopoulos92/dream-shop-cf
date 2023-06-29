@@ -1,0 +1,55 @@
+<div *ngIf="loading" class="mt-2 row alert alert-info">
+  Updating book...
+  <div class="spinner-border text-primary" role="status">
+    <span class="sr-only"></span>
+  </div>
+</div>
+<div class="container-fluid mt-4">
+  <div class="row justify-content-center align-items-center">
+    <div class="col-6">
+      <h2 class="text-center mb-4">Update book form</h2>
+      <div class="col d-flex justify-content-center align-items-center control-size">
+        <div class="me-5 mt-4 align-self-start">
+          <label for="bookId">BookId</label>
+          <input [(ngModel)]="bookId" type="number" class="form-control" id="bookId" placeholder="BookId">
+        </div>
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+          <div class="row mb-3 mt-4">
+            <div class="col-sm-12">
+              <label for="title" class="form-label">Title</label>
+              <input type="text" class="form-control" id="title" placeholder="Title"
+                formControlName="title">
+            </div>
+            <div class="col-sm-12">
+              <label for="author" class="form-label">Author</label>
+              <input type="text" class="form-control" id="author" placeholder="Write book's author"
+                formControlName="author">
+            </div>
+          </div>
+          <div class="row mb-3">
+            <div class="col-sm-12 col-lg-6">
+              <label for="price" class="form-label">Price</label>
+              <input type="number" class="form-control" id="price" placeholder="Insert price"
+                formControlName="price">
+            </div>
+            <div class="col-sm-12 col-lg-6">
+              <label for="publishedYear" class="form-label">Published year</label>
+              <input type="number" class="form-control" id="publishedYear" placeholder="Enter year of publish"
+                formControlName="publishedYear">
+            </div>
+          </div>
+          <div class="row mb-3">
+            <div class="col">
+              <label for="description" class="form-label">Description</label>
+              <input type="text" class="form-control" id="description" placeholder="Write a small description"
+                formControlName="description">
+            </div>
+          </div>
+          <div class="d-grid gap-4 mt-5">
+            <button class="btn btn-primary" type="submit">Update</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

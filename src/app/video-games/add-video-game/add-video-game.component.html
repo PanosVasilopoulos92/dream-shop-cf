@@ -1,0 +1,56 @@
+<div *ngIf="loading" class="mt-2 row alert alert-info">
+  Adding video game...
+  <div class="spinner-border text-primary" role="status">
+    <span class="sr-only"></span>
+  </div>
+</div>
+<div class="container-fluid mt-4">
+  <div class="row justify-content-center align-items-center">
+    <div class="col-6">
+      <h2 class="text-center mb-4">Add Video Game form</h2>
+      <div class="col d-flex justify-content-center align-items-center control-size">
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+          <div class="row mb-3 mt-4">
+            <div class="col">
+              <label for="title" class="form-label">Title</label>
+              <input type="text" class="form-control" id="title" placeholder="Title"
+                formControlName="title">
+            </div>
+            <div class="col">
+              <label for="manufacturer" class="form-label">Manufacturer</label>
+              <input type="text" class="form-control" id="manufacturer" placeholder="Manufacturer"
+                formControlName="manufacturer">
+            </div>
+          </div>
+          <div class="row mb-3">
+            <div class="col">
+              <label for="price" class="form-label">Price</label>
+              <input type="number" class="form-control" id="price" placeholder="Insert price"
+                formControlName="price">
+            </div>
+            <div class="col">
+              <label for="publishedYear" class="form-label">Published year</label>
+              <input type="number" class="form-control" id="publishedYear" placeholder="Enter year of publish"
+                formControlName="publishedYear">
+            </div>
+            <div class="col">
+              <label for="genre" class="form-label">Genre</label>
+              <input type="text" class="form-control" id="genre" placeholder="Genre"
+                formControlName="genre">
+            </div>
+          </div>
+          <div class="row mb-3">
+            <div class="col">
+              <label for="description" class="form-label">Description</label>
+              <input type="text" class="form-control" id="description" placeholder="Write a small description"
+                formControlName="description">
+            </div>
+          </div>
+          <div class="d-grid gap-4 mt-5">
+            <button class="btn btn-primary" type="submit">Add</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

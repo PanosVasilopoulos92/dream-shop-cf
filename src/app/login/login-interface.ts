@@ -1,8 +1,10 @@
 export interface AuthenticateUser {
+    id: number;
     username: string;
     role: string;
     token: string;
     expiresIn: number;
+    imgUrl: string;
 }
 
 export interface UserAPILoginUser {
@@ -11,8 +13,10 @@ export interface UserAPILoginUser {
 }
 
 export interface LoginResponse {
+    id: number;
     token: string;
     expiresIn: number;
     username: string;
     role: string;
+    userAvatarImg: string;
 }

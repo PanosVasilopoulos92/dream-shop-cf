@@ -35,7 +35,7 @@ export class LoginComponent {
     this.form.reset();
   }
 
-    onLogout() {
+  onLogout() {
     this.service.logout();
   }
 

@@ -1,5 +1,5 @@
 <div class="container-fluid">
-  <header class="container-fluid mt-4">
+  <header class="container-fluid px-0">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark d-flex align-items-center">
       <div class="container-fluid">
         <a class="navbar-brand mx-5" routerLink="/"><h2>DreamShop</h2></a>
@@ -13,11 +13,11 @@
                 <app-login></app-login>
             </li>
             <li class="nav-item">
-              <a *ngIf="isLoggedIn$ | async" class="nav-link" routerLink="get-user"><h4>User</h4>
+              <a *ngIf="isLoggedIn$ | async" class="nav-link" routerLink="/get-user"><h4>User</h4>
               </a>
             </li>
             <li class="nav-item">
-              <a *ngIf="!(isLoggedIn$ | async)" class="nav-link" routerLink="/signup"><h4>Sign Up</h4></a>
+              <a *ngIf="!(isLoggedIn$ | async)" class="nav-link" routerLink="/register-user"><h4>Sign Up</h4></a>
             </li>
           </ul>
         </div>

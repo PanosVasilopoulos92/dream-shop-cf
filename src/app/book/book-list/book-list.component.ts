@@ -2,7 +2,6 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { BookService } from '../book.service';
 import { Book } from '../book-interfaces';
 import { Subscription } from 'rxjs';
-import { NgModule } from '@angular/core';
 import { LoginService } from 'src/app/login/login.service';
 
 @Component({
@@ -24,8 +23,14 @@ export class BookListComponent implements OnInit, OnDestroy {
   loading = false;
   booksList: Book[] = [];
   subscription: Subscription | undefined;
+  userRole: any = this.loginService.userRole$;
 
   ngOnInit(): void {
+    // Subscribe to Observable in order to retrieve it's value.
+    this.loginService.userRole$.subscribe(userRole => {
+      this.userRole = userRole;
+      console.log(this.userRole);
+    });
     console.log("Api call has started.");
     this.loading = true;
     this.subscription = this.bookService.findAll().subscribe({

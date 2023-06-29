@@ -1,0 +1,59 @@
+<div class="container-fluid">
+  <body>
+    <div class="container-fluid row height-control">
+      <div class="col-sm-2 bg-image2">
+        <select class="form-select mt-4" (change)="onOptionChange($event)">
+          <option selected>Search Options</option>
+          <option value="username">Search by username</option>
+        </select>
+        <div class="col bg-dark text-light mt-4 justify-content-center text-center vh-30 mb-2">
+          <div class="row d-flex justify-content-center" *ngIf="selectedOption === 'username'">
+            <p>Search by username</p>
+            <div class="col mb-2 ">
+              <label for="usernameInput">Username</label>
+              <input name="usernameInput" [(ngModel)]="usernameInput" type="search">
+            </div>
+            <div>
+              <button class="btn btn-primary mb-2" type="submit" (click)="searchByUsername()">Search</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-10 bg-image">
+        <div class="container mt-5">
+          <h1 class="text-center">Manage users</h1>
+          <div class="row justify-content-center mt-5">
+            <div class="col-md-6">
+              <form class="d-flex mb-3">
+                <input class="form-control me-2 mb-4" name="searchLastnameInput" [(ngModel)]="lastnameInput"
+                  type="search" placeholder="Search By lastname" aria-label="Search">
+                <button class="btn btn-primary" type="submit" (click)="searchByLastname()">Search</button>
+              </form>
+            </div>
+          </div>
+          <div class="container row card-columns" *ngIf="usersList.length">
+            <div class="col-12 col-md-6 col-lg-4 col-xl-3 mt-3" *ngFor="let user of usersList">
+              <div class="card">
+                <div class="card-body">
+                  <div class="container mb-4">
+                    <img class="img-fluid" [src]="user.imgUrl" alt="User's avatar">
+                  </div>
+                  <h5 class="card-title text-center mt-2 pb-3">{{ user.username }}</h5>
+                  <h6 class="card-subtitle mb-2 text-muted">User Id: {{ user.id }}</h6>
+                  <p class="card-text">Firstname: {{user.firstname }}</p>
+                  <p class="card-text">Lastname: {{user.lastname }} </p>
+                  <p class="card-text">E-mail: {{user.email }} </p>
+                  <p class="card-text">Phone: {{user.phone }} </p>
+                  <p class="card-text">Role: {{user.role }} </p>
+                  <div class="container bg-dark d-flex justify-content-center">
+                    <button class="btn btn-light buy-btn mt-1 mb-1" (click)="sendData(user.username)" routerLink="/manage-user-page">Inspect</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</div>

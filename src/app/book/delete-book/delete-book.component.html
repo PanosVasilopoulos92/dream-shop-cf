@@ -1,0 +1,26 @@
+<div *ngIf="loading" class="mt-2 row alert alert-info">
+  Deleting book...
+  <div class="spinner-border text-primary" role="status">
+    <span class="sr-only"></span>
+  </div>
+</div>
+<div class="container-fluid mt-4">
+  <div class="row justify-content-center align-items-center">
+    <div class="col-6">
+      <h2 class="text-center mb-4">Delete book form</h2>
+      <div class="col d-flex justify-content-center align-items-center control-size">
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+          <div class="row mb-3 mt-4 form-group">
+            <div class="col">
+              <label for="bookId">BookId</label>
+              <input type="number" class="form-control" id="bookId" placeholder="Book ID" formControlName="bookId">
+            </div>
+          </div>
+          <div class="d-grid gap-4 mt-5">
+            <button class="btn btn-danger" type="submit">Delete</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

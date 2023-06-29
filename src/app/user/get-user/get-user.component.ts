@@ -1,8 +1,8 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { UserService } from '../user.service';
-import { DisplayUser, DisplayUsersAPIList } from './user-interface';
 import { Subscription } from 'rxjs';
 import { LoginService } from 'src/app/login/login.service';
+import { DisplayUser } from '../user-interfaces';
 
 @Component({
   selector: 'app-get-user',
@@ -18,9 +18,17 @@ export class GetUserComponent implements OnInit, OnDestroy {
   loading: Boolean = false;    // True when the call to Backend is loading and false when it is not loading. In order to show a spinner when loading.
   user?: DisplayUser;
   subscription: Subscription | undefined;
+  userAvatarImg: any = this.service.userAvatarImg$;
+  userRole: any = this.service.userRole$;
 
   ngOnInit(): void {
     console.log("Starting Api call 'findUser'.");
+    this.service.userAvatarImg$.subscribe((userAvatarImg) => {
+        this.userAvatarImg = userAvatarImg;
+    });
+    this.service.userRole$.subscribe((userRole) => {
+        this.userRole = userRole;
+    });
     this.service.username$.subscribe((username) => {
       if (username) {
         this.username = username;
@@ -32,8 +40,8 @@ export class GetUserComponent implements OnInit, OnDestroy {
   fetchUser(): void {
     console.log("Starting API call 'findUser'.");
     console.log(this.username);
-    this.subscription = this.userService.findOne(this.username).subscribe({
-      next: (apiData: DisplayUser) => {
+    this.subscription = this.userService.findUserByUsername(this.username).subscribe({
+      next: (apiData: any) => {
         console.log(apiData);
         this.user = apiData;
       },
@@ -51,5 +59,5 @@ export class GetUserComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.subscription?.unsubscribe();
   }
-  
+
 }

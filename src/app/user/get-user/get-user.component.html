@@ -1,35 +1,51 @@
-
 <div class="container">
   <h1>User Details</h1>
   <div *ngIf="user">
     <div class="card">
-      <div class="card-body">
-        <h5 class="card-title">{{ user.username }}</h5>
-        <h6 class="card-subtitle mb-2 text-muted">Id: {{ user.id }}</h6>
-        <p class="card-text">Firstname: {{ user.firstname }}</p>
-        <p class="card-text">Lastname: {{ user.lastname }}</p>
-        <p class="card-text">Email: {{ user.email }}</p>
-        <p class="card-text">Phone: {{ user.phone }}</p>
-        <p class="card-text">Role: {{ user.role }}</p>
+      <div class="row">
+        <div class="col col-md-6">
+          <div class="card-body container d-flex flex-column align-items-center">
+            <img [src]="userAvatarImg" alt="User's avatar" class="custom-img">
+            <h4 class="card-title mt-3">{{ user.username }}</h4>
+          </div>
+        </div>
+        <div class="col col-md-6 row">
+          <div class="col col-md-6">
+            <div class="card-body">
+              <h5 class="card-subtitle mb-2 text-muted">Id: {{ user.id }}</h5>
+              <p class="card-text">Firstname: <span class="fs-5">{{ user.firstname }}</span></p>
+              <p class="card-text">Lastname: <span class="fs-5">{{ user.lastname }}</span></p>
+              <p class="card-text">Email: <span class="fs-5">{{ user.email }}</span></p>
+              <p class="card-text">Phone: <span class="fs-5">{{ user.phone }}</span></p>
+              <p class="card-text">Role: <span class="fs-5">{{ user.role }}</span></p>
+            </div>
+          </div>
+          <div class="col col-md-6 row align-items-center">
+            <button *ngIf="userRole === 'ADMIN'" class="col btn btn-danger mx-1" type="button" routerLink="/get-users-list">Manage
+              Users</button>
+            <button class="col btn btn-primary mx-1" type="button" routerLink="/update-user">Update profile</button>
+          </div>
+        </div>
       </div>
     </div>
+
     <div class="row mt-5">
-      <div class="col bg-primary">
+      <div class="col-12 col-md-4 bg-primary scrollable-div overflow-auto">
         <div class="text-center"><h4>Books:</h4></div>
         <ul>
           <div class="card-body" *ngIf="user.books.length >= 1">
             <h5 class="card-title" *ngFor="let book of user.books">
               Title: {{ book.title }} <br>
-              Author: {{book.author}} <br>
-              Book ID: {{book.id}} <br>
-              Published year: {{book.publishedYear}} <br>
+              Author: {{ book.author }} <br>
+              Book ID: {{ book.id }} <br>
+              Published year: {{ book.publishedYear }} <br>
               ------------- <br>
             </h5>
           </div>
           <li *ngIf="user.books.length === 0"><h5>No books available.</h5></li>
         </ul>
       </div>
-      <div class="col bg-light">
+      <div class="col-12 col-md-4 bg-light scrollable-div overflow-auto">
         <div class="text-center"><h4>Board Games:</h4></div>
         <ul>
           <div class="card-body" *ngIf="user.boardGames.length >= 1">
@@ -47,7 +63,7 @@
           <li *ngIf="user.boardGames.length === 0"><h5>No board games available.</h5></li>
         </ul>
       </div>
-      <div class="col bg-danger">
+      <div class="col-12 col-md-4 bg-danger scrollable-div overflow-auto">
         <div class="text-center"><h4>Video Games:</h4></div>
         <ul>
           <div class="card-body" *ngIf="user.videoGames.length >= 1">

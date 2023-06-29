@@ -2,13 +2,14 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { VideoGamesService } from '../video-games.service';
 import { VideoGame } from '../video-games-interfaces';
 import { Subscription } from 'rxjs';
+import { LoginService } from 'src/app/login/login.service';
 
 @Component({
   selector: 'app-video-games-list',
   templateUrl: './video-games-list.component.html',
   styleUrls: ['./video-games-list.component.css']
 })
-export class VideoGamesListComponent implements OnInit, OnDestroy{
+export class VideoGamesListComponent implements OnInit, OnDestroy {
 
   searchTitleInput: string = '';
   selectedOption: string | undefined;
@@ -16,14 +17,20 @@ export class VideoGamesListComponent implements OnInit, OnDestroy{
   priceLessThan: number = 0;
   price1: number = 0;
   price2: number = 0;
+  userRole: any = this.loginService.userRole$;
 
-  constructor(private videoGameService: VideoGamesService) {}
+  constructor(private videoGameService: VideoGamesService, private loginService: LoginService) {}
 
   loading = false;
   videoGamesList: VideoGame[] = [];
   subscription: Subscription | undefined;
 
   ngOnInit(): void {
+    // Subscribe to Observable in order to retrieve it's value.
+    this.loginService.userRole$.subscribe(userRole => {
+      this.userRole = userRole;
+      console.log(this.userRole);
+    });
     console.log("Api call has started.");
     this.loading = true;
     this.subscription = this.videoGameService.findAll().subscribe({
@@ -32,11 +39,9 @@ export class VideoGamesListComponent implements OnInit, OnDestroy{
       this.videoGamesList = apiData; // Assign the array directly
       },
       error: (error) => {
-        this.loading = false;
         console.log(error);
       },
       complete: ()=> {
-        this.loading = false;
         console.log("Api call has been completed.")
       }
     })
@@ -54,13 +59,11 @@ export class VideoGamesListComponent implements OnInit, OnDestroy{
       this.videoGamesList = apiData; // Assign the array directly
       },
       error: (error) => {
-        this.loading = false;
         console.log(error);
         this.videoGamesList = [];
         this.showAlert("Wrong input, nothing to show.");
       },
       complete: ()=> {
-        this.loading = false;
         console.log("Api call has been completed.")
       }
     })
@@ -74,13 +77,11 @@ export class VideoGamesListComponent implements OnInit, OnDestroy{
       this.videoGamesList = apiData; // Assign the array directly
       },
       error: (error) => {
-        this.loading = false;
         console.log(error);
         this.videoGamesList = [];
         this.showAlert("Wrong input, nothing to show.");
       },
       complete: ()=> {
-        this.loading = false;
         console.log("Api call has been completed.")
       }
     })
@@ -94,13 +95,11 @@ export class VideoGamesListComponent implements OnInit, OnDestroy{
       this.videoGamesList = apiData; // Assign the array directly
       },
       error: (error) => {
-        this.loading = false;
         console.log(error);
         this.videoGamesList = [];
         this.showAlert("Wrong input, nothing to show.");
       },
       complete: ()=> {
-        this.loading = false;
         console.log("Api call has been completed.")
       }
     })
@@ -114,13 +113,11 @@ export class VideoGamesListComponent implements OnInit, OnDestroy{
       this.videoGamesList = apiData; // Assign the array directly
       },
       error: (error) => {
-        this.loading = false;
         console.log(error);
         this.videoGamesList = [];
         this.showAlert("Wrong input, nothing to show.");
       },
       complete: ()=> {
-        this.loading = false;
         console.log("Api call has been completed.")
       }
     })

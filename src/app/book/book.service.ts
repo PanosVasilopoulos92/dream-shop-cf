@@ -1,6 +1,7 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Book, DisplayBooksAPIList } from './book-interfaces';
+import { delay } from 'rxjs';
 
 const BOOK_API = 'http://localhost:8080/api'
 
@@ -39,12 +40,23 @@ export class BookService {
     return this.http.get<DisplayBooksAPIList>(`${BOOK_API}/books/find/author`, { params: { author }});
   }
 
-  addBookToUser(userId: number, bookId: number) {
-    console.log(userId, bookId);
+  addBookToUser(userId: any, bookId: number) {
     return this.http.post<any>(`http://localhost:8080/api/users/${userId}/books/add/${bookId}`, null);
   }
 
   findBook(bookId: number) {
     return this.http.get<Book>(`${BOOK_API}/books/findOne/${bookId}`);
+  }
+
+  addBook(book: Book) {
+    return this.http.post<Book>(`${BOOK_API}/books/create`, book).pipe(delay(1000));
+  }
+
+  removeBook(bookId: number) {
+    return this.http.delete<Book>(`http://localhost:8080/api/books/delete/${bookId}`).pipe(delay(1000));
+  }
+
+  updateBook(bookId: any, book: Book) {
+    return this.http.put<Book>(`${BOOK_API}/books/update/${bookId}`, book).pipe(delay(1000));
   }
 }

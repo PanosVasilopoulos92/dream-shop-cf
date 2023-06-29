@@ -2,6 +2,12 @@
     max-width: 80vw;
 }
 
+.vw {
+    @media (min-width: 992px) {
+        min-height: 70vh;
+    }
+}
+
 .img-fluid-fill {
     object-fit: cover;
     width: 100%;
@@ -15,7 +21,7 @@
 
 .hover-effect:hover {
     color: gray;
-    transform: scale(1.8)
+    transform: scale(1.4)
 }
 
 .hover-effect::before {
